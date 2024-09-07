@@ -33,6 +33,7 @@ export class AppComponent implements OnInit, OnDestroy {
   changeCharactersInput(element: any): void {
     // 1.1. Add functionality to changeCharactersInput method. Changes searchTermByCharacters Subject value on input change.
     const inputValue: string = element.target.value;
+    console.log(inputValue);
     // YOUR CODE STARTS HERE
     this.searchTermByCharacters.next(inputValue);
     // YOUR CODE ENDS HERE
@@ -48,7 +49,11 @@ export class AppComponent implements OnInit, OnDestroy {
     this.charactersResults$ = this.searchTermByCharacters
         .pipe
         // YOUR CODE STARTS HERE
-        (map((x) => this.mockDataService.getCharacters(x)))
+        (
+          filter(w => w.length >= 3),
+          map((x) => this.mockDataService.getCharacters(x))
+        )
+        
         // YOUR CODE ENDS HERE
         ;
   }
