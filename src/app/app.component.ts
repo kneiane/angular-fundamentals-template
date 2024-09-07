@@ -1,12 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
   combineLatest,
-  concatAll,
   debounceTime,
   filter,
   forkJoin,
   map,
-  merge,
   Observable,
   Subject,
   Subscription,
@@ -52,25 +50,23 @@ export class AppComponent implements OnInit, OnDestroy {
         (
           debounceTime(1000),
           filter(w => w.length >= 3),
-          map((x) => this.mockDataService.getCharacters(x),
-        )
+          switchMap((x) => {
+            console.log(x);
+            return this.mockDataService.getCharacters(x)})
         )
         // YOUR CODE ENDS HERE
         ;
+        this.charactersResults$.subscribe(console.log)
   }
 
   loadCharactersAndPlanet(): void {
     // 4. On clicking the button 'Load Characters And Planets', it is necessary to process two requests and combine the results of both requests into one result array. As a result, a list with the names of the characters and the names of the planets is displayed on the screen.
     // Your code should looks like this: this.planetAndCharactersResults$ = /* Your code */
     // YOUR CODE STARTS HERE
-    // this.planetAndCharactersResults$ = this.mockDataService.getCharacters();
-
     this.planetAndCharactersResults$ = forkJoin([
       this.mockDataService.getCharacters(),
       this.mockDataService.getPlanets()
     ]).pipe(map(x => [].concat(...x)));
-    
-    this.planetAndCharactersResults$.subscribe(console.log)
     // YOUR CODE ENDS HERE
   }
 
@@ -81,12 +77,18 @@ export class AppComponent implements OnInit, OnDestroy {
     - Subscribe to changes
     - Check the received value using the areAllValuesTrue function and pass them to the isLoading variable. */
     // YOUR CODE STARTS HERE
+    const charactersLoader = this.mockDataService.getCharactersLoader();
+    const planetLoader = this.mockDataService.getPlanetLoader();
+    const combined = combineLatest(charactersLoader, planetLoader);
+    combined.subscribe(value => this.isLoading = this.areAllValuesTrue(value));
+
     // YOUR CODE ENDS HERE
   }
 
   ngOnDestroy(): void {
     // 5.2 Unsubscribe from all subscriptions
     // YOUR CODE STARTS HERE
+    
     // YOUR CODE ENDS HERE
   }
 
