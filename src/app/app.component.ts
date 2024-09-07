@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
   combineLatest,
+  debounceTime,
   filter,
   forkJoin,
   map,
@@ -50,8 +51,10 @@ export class AppComponent implements OnInit, OnDestroy {
         .pipe
         // YOUR CODE STARTS HERE
         (
+          debounceTime(1000),
           filter(w => w.length >= 3),
-          map((x) => this.mockDataService.getCharacters(x))
+          map((x) => this.mockDataService.getCharacters(x),
+        )
         )
         
         // YOUR CODE ENDS HERE
