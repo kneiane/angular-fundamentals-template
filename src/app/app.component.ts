@@ -51,12 +51,10 @@ export class AppComponent implements OnInit, OnDestroy {
           debounceTime(1000),
           filter(w => w.length >= 3),
           switchMap((x) => {
-            console.log(x);
             return this.mockDataService.getCharacters(x)})
         )
         // YOUR CODE ENDS HERE
         ;
-        this.charactersResults$.subscribe(console.log)
   }
 
   loadCharactersAndPlanet(): void {
@@ -80,15 +78,14 @@ export class AppComponent implements OnInit, OnDestroy {
     const charactersLoader = this.mockDataService.getCharactersLoader();
     const planetLoader = this.mockDataService.getPlanetLoader();
     const combined = combineLatest(charactersLoader, planetLoader);
-    combined.subscribe(value => this.isLoading = this.areAllValuesTrue(value));
-
+    this.subscriptions.push(combined.subscribe(value => this.isLoading = this.areAllValuesTrue(value)));
     // YOUR CODE ENDS HERE
   }
 
   ngOnDestroy(): void {
     // 5.2 Unsubscribe from all subscriptions
     // YOUR CODE STARTS HERE
-    
+    this.subscriptions.forEach(subscription => subscription.unsubscribe())
     // YOUR CODE ENDS HERE
   }
 
