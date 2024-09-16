@@ -11,15 +11,15 @@
   </app-info>
  
   <!-- Course Card component -->
-  <!-- <app-course-card (clickOnShow)="handleClickOnShow()">
+  <app-course-card (clickOnShow)="handleClickOnShow()">
     <app-button [iconName]="'trash-can'"></app-button><app-button [iconName]="'pencil'"></app-button>
   </app-course-card>
 
   <app-course-card [editable] = "false">
     <app-button [iconName]="'trash-can'"></app-button><app-button [iconName]="'pencil'"></app-button>
-  </app-course-card> -->
+  </app-course-card>
 
-  <app-courses-list></app-courses-list>
+  <app-courses-list [editable]="true"></app-courses-list>
 
   <app-course-info></app-course-info>
   <!-- Login Form component -->

@@ -13,7 +13,6 @@ export class ButtonComponent {
     library.addIconPacks(fas);
   }
 
-  // Use the names for the inputs `buttonText` and `iconName`.
   @Input() buttonText?: string;
   @Input() iconName?: IconName;
   
