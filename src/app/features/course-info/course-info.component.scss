@@ -2,7 +2,7 @@
 
 .title {
   font-size: 32px;
-  font-weight: 900;
+  font-weight: 700;
 }
 
 .course-info {
@@ -19,7 +19,8 @@
   &__description {
     flex: 2;
     border-right: 1px solid #CFCFCF;
-
+    font-weight: 400;
+    padding-right: 30px;
   }
 
   &__info {
@@ -28,7 +29,7 @@
     flex-direction: column;
     justify-content: space-between;
     gap: 3px;
-    margin-left: 50px;
+    margin-left: 3%;
   }
 }
 

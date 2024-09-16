@@ -3,16 +3,25 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    padding: 13px 36px;
+    padding: 13px 20px;
     gap: 10px;
     background: #007298;
     border-radius: 4px;
     color: #fff;
     text-transform: uppercase;
     cursor: pointer;
+    font-weight: bold;
+    letter-spacing: 1px;
 
     &:hover {
         background: #016486;
+    }
+    &:focus {
+        background: #ff002f;
+    }
+   
+    &:active {
+        background: #00ddff
     }
 
     &__single-icon {
