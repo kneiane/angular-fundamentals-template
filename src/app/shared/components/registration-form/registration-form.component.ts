@@ -18,7 +18,7 @@ export class RegistrationFormComponent {
       ]),
       email: new FormControl('', [
         Validators.required,
-        emailMatchRegex()
+        // emailMatchRegex()
       ]),
       password: new FormControl('', [
         Validators.required

@@ -40,4 +40,15 @@ export class CourseFormComponent {
     this.authors.removeAt(index);
   }
 
+  onSubmit(): void {
+    if (this.courseForm.valid) {
+      console.log("Form Submitted!");
+      console.log(this.courseForm.value);
+    } else {
+      console.log("Form is invalid");
+    }
+  }
+
+
+
 }

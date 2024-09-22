@@ -19,7 +19,7 @@
       </div>
       <div class="form__control">
         <label for="email">Email</label>
-        <input type="text" id="email" placeholder="Input text" formControlName="email" required/>
+        <input type="text" id="email" placeholder="Input text" formControlName="email" required emailValidator/>
         <!-- {{ registrationForm.controls['email'].value }}
         {{ registrationForm.controls['email'].errors | json }} -->
         <span *ngIf="registrationForm.controls['email'].invalid && registrationForm.controls['email'].touched"

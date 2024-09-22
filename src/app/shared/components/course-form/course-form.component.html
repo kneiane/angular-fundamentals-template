@@ -1,8 +1,7 @@
-<!-- Replace ::text:: with your code -->
 <h2>Create / Edit Course</h2>
-<form>
+<form [formGroup]="courseForm">
   <div class="app-plate">
-    <div class="course" [formGroup]="courseForm">
+    <div class="course">
       <h3>Main Info</h3>
       <!-- {{ courseForm.controls | consoleLog:"asdfasfgdasf" }} -->
       <div class="form__control">
@@ -63,5 +62,5 @@
   </div>
 </form>
 <div class="form__action">
-  <app-button buttonText="cancel"></app-button><app-button buttonText="create course"></app-button>
+  <app-button buttonText="cancel"></app-button><app-button buttonText="create course" (click)="onSubmit()"></app-button>
 </div>
