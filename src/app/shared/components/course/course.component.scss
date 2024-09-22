@@ -1,0 +1,56 @@
+@import 'src/app/shared/styles/styles';
+
+.course {
+ min-width: 60vw;
+
+  &__flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+
+    & input {
+      flex: 1;
+    }
+
+    & app-button {
+      margin-left: 16px;
+    }
+
+    & .course__duration {
+      margin-left: 16px;
+    }
+  }
+
+  &__authors {
+    margin-top: 8px;
+    display: flex;
+    flex-direction: column;
+
+    &-item {
+      margin-right: 10px;
+    }
+  }
+
+  &__icon {
+    margin-left: 4px;
+    cursor: pointer;
+  }
+}
+
+.ng-untouched input {
+  border: 1px solid #CFCFCF;
+}
+
+.form__action {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.authors_icons {
+  margin-left: 0.2em;
+  background-color: inherit;
+  border: none;
+  cursor:pointer;
+  border-radius: 2px;
+}
