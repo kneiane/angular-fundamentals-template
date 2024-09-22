@@ -48,10 +48,11 @@
           <input type="text" id="author" placeholder="Input Author Name" formControlName="newAuthor"/>
           <app-button buttonText="create author" id="createAuthor" (click)="addAuthor(courseForm.controls['newAuthor'].value)"></app-button>
         </div>
-        <span id="authorErrorMessage">New author should contain only latin letters and numbers.</span>
+        <span *ngIf="courseForm.controls['newAuthor'].errors?.['pattern']" id="authorErrorMessage" class="text-danger">New author should contain only latin letters and numbers.</span>
         <div class="course__authors" formArrayName="authors">
           <div *ngFor="let author of authors.controls; let i = index" style="display: flex; flex-direction: row;">
-            <input [formControlName]="i">
+            <!-- <input [formControlName]="i"> -->
+             {{author.value}}
             <button  class="authors_icons"><fa-icon  [icon]="['fas', 'plus']"></fa-icon></button>
             <button  class="authors_icons" (click)="removeAuthor(i)"><fa-icon  [icon]="['fas', 'trash']" ></fa-icon></button>
           </div>

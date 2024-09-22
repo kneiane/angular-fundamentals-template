@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-search',
@@ -7,8 +7,10 @@ import { Component, Input } from '@angular/core';
 })
 export class SearchComponent {
   @Input() name!: string;
+  @Output() search = new EventEmitter();
 
-  
-  // Use the name `search` for the @Output.
+  handleClick() {
+    this.search.emit();
+  }
 }
 

@@ -16,14 +16,12 @@ export class CourseFormComponent {
   }
 
   ngOnInit(): void {
-    this.courseForm = new FormGroup({
-      title: new FormControl('', [Validators.required, Validators.minLength(2)]),
-      description: new FormControl('', [Validators.required, Validators.minLength(2)]),
-      authorField: new FormControl('', [Validators.minLength(2)]),
+    this.courseForm = this.fb.group({
+      title: ['', [Validators.required, Validators.minLength(2)]],
+      description: ['', [Validators.required, Validators.minLength(2)]],
       authors: this.fb.array([]),
-      newAuthor: new FormControl('', [Validators.minLength(2), Validators.pattern('^[a-zA-Z0-9]+$')]),
-      duration: new FormControl(0, [Validators.required, Validators.min(0)]),
-
+      newAuthor: ['', [Validators.minLength(2), Validators.pattern('^[a-zA-Z0-9]+$')]],
+      duration: [0, [Validators.required, Validators.min(0)]],
     });
   
   }
@@ -33,7 +31,10 @@ export class CourseFormComponent {
   }
 
   addAuthor(authorName: string): void {
-    this.authors.push(this.fb.control(authorName, Validators.required));
+    if (!this.courseForm.controls['newAuthor'].errors) {
+      this.authors.push(this.fb.control(authorName, Validators.required));
+    }
+    
   }
 
   removeAuthor(index: number): void {
