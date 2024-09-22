@@ -4,7 +4,7 @@
     <div>
       <div class="form__control">
         <label for="name">Name</label>
-        <input type="text" id="name" placeholder="Input text" formControlName="name"/>
+        <input type="text" id="name" placeholder="Input text" formControlName="name" required/>
         <!-- {{ registrationForm.controls["name"].errors | json }} -->
         <span *ngIf="registrationForm.controls['name'].invalid && registrationForm.controls['name'].touched"
           id="nameErrorMessage"
@@ -19,7 +19,7 @@
       </div>
       <div class="form__control">
         <label for="email">Email</label>
-        <input type="text" id="email" placeholder="Input text" formControlName="email"/>
+        <input type="text" id="email" placeholder="Input text" formControlName="email" required/>
         <!-- {{ registrationForm.controls['email'].value }}
         {{ registrationForm.controls['email'].errors | json }} -->
         <span *ngIf="registrationForm.controls['email'].invalid && registrationForm.controls['email'].touched"
@@ -35,7 +35,7 @@
       </div>
       <div class="form__control">
         <label for="password">Password</label>
-        <input type="password" id="password" placeholder="Input text" formControlName="password"/>
+        <input type="password" id="password" placeholder="Input text" formControlName="password" required/>
         <span *ngIf="registrationForm.controls['password'].invalid && registrationForm.controls['password'].touched" id="passwordErrorMessage" class="text-danger">          
           <span *ngIf="registrationForm.controls['password'].errors?.['required']" id="passwordErrorMessage" class="text-danger">Password is required.</span>
         </span>
