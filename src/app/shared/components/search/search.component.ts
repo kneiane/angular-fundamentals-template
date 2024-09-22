@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-search',
@@ -6,7 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./search.component.scss']
 })
 export class SearchComponent {
-  // Use the name `placeholder` for the @Input.
+  @Input() name!: string;
+
+  
   // Use the name `search` for the @Output.
 }
 

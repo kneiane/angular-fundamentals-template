@@ -24,6 +24,7 @@
   &__authors {
     margin-top: 8px;
     display: flex;
+    flex-direction: column;
 
     &-item {
       margin-right: 10px;
@@ -34,4 +35,22 @@
     margin-left: 4px;
     cursor: pointer;
   }
+}
+
+.ng-untouched input {
+  border: 1px solid #CFCFCF;
+}
+
+.form__action {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.authors_icons {
+  margin-left: 0.2em;
+  background-color: inherit;
+  border: none;
+  cursor:pointer;
+  border-radius: 2px;
 }
