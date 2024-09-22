@@ -20,13 +20,15 @@
       <div class="form__control">
         <label for="email">Email</label>
         <input type="text" id="email" placeholder="Input text" formControlName="email" required/>
+        <!-- {{ registrationForm.controls['email'].value }}
+        {{ registrationForm.controls['email'].errors | json }} -->
         <span *ngIf="registrationForm.controls['email'].invalid && registrationForm.controls['email'].touched"
         id="nameErrorMessage"
         class="text-danger">
           <span *ngIf="registrationForm.controls['email'].errors?.['required']"
             id="emailErrorMessage"
             class="text-danger">Email is required.</span>
-          <span *ngIf="registrationForm.controls['email'].errors?.['emailMatchRegex']"
+          <span *ngIf="registrationForm.controls['email'].errors?.['isInvalid']"
             id="emailErrorMessage"
             class="text-danger">Invalid email.</span>
         </span>
@@ -34,12 +36,8 @@
       <div class="form__control">
         <label for="password">Password</label>
         <input type="password" id="password" placeholder="Input text" formControlName="password" required/>
-        <span *ngIf="registrationForm.controls['email'].invalid && registrationForm.controls['email'].touched"
-          id="passwordErrorMessage"
-          class="text-danger">          
-          <span *ngIf="registrationForm.controls['email'].errors?.['required']"
-          id="passwordErrorMessage"
-          class="text-danger">Password is required.</span>
+        <span *ngIf="registrationForm.controls['password'].invalid && registrationForm.controls['password'].touched" id="passwordErrorMessage" class="text-danger">          
+          <span *ngIf="registrationForm.controls['password'].errors?.['required']" id="passwordErrorMessage" class="text-danger">Password is required.</span>
         </span>
       </div>
     </div>

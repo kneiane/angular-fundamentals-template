@@ -46,7 +46,6 @@
       <h3>Authors</h3>
       <div class="form__control">
         <div class="course__flex">
-          <!--Use the name `author` for the form control.-->
           <input type="text" id="author" placeholder="Input Author Name" formControlName="newAuthor"/>
           <app-button buttonText="create author" id="createAuthor" (click)="addAuthor(courseForm.controls['newAuthor'].value)"></app-button>
         </div>

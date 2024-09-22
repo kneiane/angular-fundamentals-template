@@ -22,7 +22,7 @@ export class CourseFormComponent {
       authorField: new FormControl('', [Validators.minLength(2)]),
       authors: this.fb.array([]),
       newAuthor: new FormControl('', [Validators.minLength(2), Validators.pattern('^[a-zA-Z0-9]+$')]),
-      duration: new FormControl(0, [Validators.required, Validators.min(1)]),
+      duration: new FormControl(0, [Validators.required, Validators.min(0)]),
 
     });
   
