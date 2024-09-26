@@ -12,6 +12,8 @@ import { CommonModule } from '@angular/common';
 import { CoursesListModule } from './features/courses/courses-list/courses-list.module';
 import { CourseInfoModule } from './features/course-info/course-info.module';
 import { CoursesModule } from './features/courses/courses.module';
+import { AppRoutingModule } from './app-routing.module';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent, CourseInfoComponent],
@@ -23,6 +25,8 @@ import { CoursesModule } from './features/courses/courses.module';
     CourseInfoModule,
     CoursesModule,
     FontAwesomeModule,
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [AuthorizedGuard, NotAuthorizedGuard, CoursesService, CoursesStoreService],
   bootstrap: [AppComponent],

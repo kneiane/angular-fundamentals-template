@@ -26,7 +26,7 @@
             <span *ngIf="emailField.errors?.['isInvalid']">Invalid email.</span>
           </span>
           <!-- {{ emailField.value }} -->
-            submitted: {{ loginForm.submitted }}
+            <!-- submitted: {{ loginForm.submitted }} -->
           <!-- <br />
             Invalid: {{ emailField.invalid }} <br />
             Touched: {{ emailField.touched }} <br />
@@ -57,11 +57,17 @@
             buttonText="login"
             (click)="submitForm()"
           ></app-button>
+          <span
+          class="text-danger"
+          *ngIf="failedLogin"
+          >
+          Invalid email address or password provided.
+        </span>
            <!-- this works and set the submitted value to true -->
           <!-- <button type="submit">Submit</button> -->
         </div>
         <div class="form__text">
-          If you don't have an account you may <strong>Registration</strong>
+          If you don't have an account you may <strong><a [routerLink]="['/registration']">Registration</a></strong>
         </div>
       </div>
     </div>

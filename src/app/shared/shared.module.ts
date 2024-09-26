@@ -17,6 +17,7 @@ import { DurationPipe } from './pipes/duration.pipe';
 import { CustomDatePipe } from './pipes/custom-date.pipe';
 import { EmailValidatorDirective } from '@shared/directives/email.directive';
 import { ConsoleLogPipe } from './pipes/console-log.pipe';
+import { AppRoutingModule } from '@app/app-routing.module';
 
 const components = [
   HeaderComponent,
@@ -41,6 +42,7 @@ const components = [
     FontAwesomeModule,
     FormsModule,
     ReactiveFormsModule,
+    AppRoutingModule,
   ],
   exports: [components]
 })
