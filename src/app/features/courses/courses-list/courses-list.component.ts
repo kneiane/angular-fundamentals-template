@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { mockedCoursesList } from '@app/shared/mocks/mocks';
+import { Course } from '../course-model';
 
 @Component({
   selector: 'app-courses-list',
@@ -7,7 +8,7 @@ import { mockedCoursesList } from '@app/shared/mocks/mocks';
   styleUrls: ['./courses-list.component.css']
 })
 export class CoursesListComponent {
-  @Input() courses = mockedCoursesList;
+  @Input() courses: Course[] = [];
   @Input() editable: boolean = true;
 
   @Output() showCourse = new EventEmitter<string>();

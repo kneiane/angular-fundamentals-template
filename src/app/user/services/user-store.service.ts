@@ -23,11 +23,11 @@ export class UserStoreService {
     // Add your code here
   }
 
-  // get isAdmin() {
-  //     // Add your code here. Get isAdmin$$ value
-  // }
+  get isAdmin() {
+    return this.isAdmin$$.value;
+  }
 
   set isAdmin(value: boolean) {
-    // Add your code here. Change isAdmin$$ value
+    this.isAdmin$$.next(value);
   }
 }

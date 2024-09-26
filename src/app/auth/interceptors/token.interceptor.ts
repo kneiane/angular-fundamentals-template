@@ -10,26 +10,26 @@ export class TokenInterceptor implements HttpInterceptor {
     constructor(
         private sessionStorage: SessionStorageService,
         private router: Router,
-        private authService: AuthService
+        //private authService: AuthService
       ) {}
     
-      intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+      intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         const token = this.sessionStorage.getToken();
-        let authReq = req;
+        let newRequest = request;
     
         if (token) {
-          authReq = req.clone({
+          newRequest = request.clone({
             setHeaders: { Authorization: `${token}` },
           });
         }
     
-        return next.handle(authReq).pipe(
+        return next.handle(newRequest).pipe(
           catchError(error => {
             if (error.status === 401) {
-              this.authService.logout();
+              //this.authService.logout();
               this.router.navigate(['/login']);
             }
-            return throwError(error);
+            return throwError(() => new Error("Error in getting tokens: " + error.message));
           })
         );
       }

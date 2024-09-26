@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CoursesStoreService } from '@app/services/courses-store.service';
 
 @Component({
   selector: 'app-courses',
@@ -6,5 +7,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./courses.component.css']
 })
 export class CoursesComponent {
+  constructor(protected coursesStore: CoursesStoreService) {}
 
+  ngOnInit(): void {
+    this.coursesStore.getAll()
+  }
 }

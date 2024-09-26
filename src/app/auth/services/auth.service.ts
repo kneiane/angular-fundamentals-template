@@ -25,24 +25,21 @@ export class AuthService {
     }
 
     logout() {
-        this.sessionStorage.deleteToken();
-        this.isAuthorised = false;
-
-        // return this.http.delete(environment.backendURL + "/logout").subscribe(      // throws 403 Forbidden
-        //  () => {
-        //         this.sessionStorage.deleteToken();
-        //         this.isAuthorised = false;
-        //     }
-        // );
+        return this.http.delete(environment.backendURL + "/logout").subscribe(
+         () => {
+                this.sessionStorage.deleteToken();
+                this.isAuthorised = false;
+            }
+        );
     }
 
-    register(user: any) { // FIXME replace 'any' with the required interface
+    register(user: {name: string, email: string, password: string}) {
         
         // FIXME invoke router to take you to the login page, with a pipe/subscribe method. see getLoginUrl()
         return this.http.post(environment.backendURL + "/register", user).pipe(
             map((response: any) => {
-              this.sessionStorage.setToken(response.result);
-              this.isAuthorized$$.next(true);
+            //   this.sessionStorage.setToken(response.result);
+            //   this.isAuthorized$$.next(true);
             })
         );
     }
