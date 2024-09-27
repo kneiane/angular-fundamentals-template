@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { mockedCoursesList } from '@app/shared/mocks/mocks';
 import { Course } from '../course-model';
+import { CoursesStoreService } from '@app/services/courses-store.service';
 
 @Component({
   selector: 'app-courses-list',
@@ -8,6 +9,9 @@ import { Course } from '../course-model';
   styleUrls: ['./courses-list.component.css']
 })
 export class CoursesListComponent {
+
+  constructor(protected coursesStore: CoursesStoreService){}
+
   @Input() courses: Course[] = [];
   @Input() editable: boolean = true;
 
@@ -19,4 +23,12 @@ export class CoursesListComponent {
     this.showCourse.emit();
     console.log('ok');
   }
+
+  handleTrashIconClick(id: string) {
+    this.coursesStore.deleteCourse(id).subscribe(
+      () => this.coursesStore.getAll()
+    );
+
+  }
+
 }

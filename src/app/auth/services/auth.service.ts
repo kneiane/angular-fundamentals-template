@@ -25,10 +25,15 @@ export class AuthService {
     }
 
     logout() {
+        const clearValues = () => {
+            this.sessionStorage.deleteToken();
+            this.isAuthorised = false;
+        };
+
         return this.http.delete(environment.backendURL + "/logout").subscribe(
-         () => {
-                this.sessionStorage.deleteToken();
-                this.isAuthorised = false;
+            {
+                next: clearValues, 
+                error: clearValues
             }
         );
     }

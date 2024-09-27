@@ -31,20 +31,22 @@ export class CoursesStoreService {
     }
 
     createCourse(course: any) { // replace 'any' with the required interface
-        // Add your code here
+        this.isLoading$$.next(true);
     }
 
     getCourse(id: string): Observable<Course> {
         this.isLoading$$.next(true);
-        return this.coursesService.getCourse(id);
+        return this.coursesService.getCourse(id).pipe(
+            tap(() => this.isLoading$$.next(false))
+        );
     }
 
-    editCourse(id: string, course: any) { // replace 'any' with the required interface
+    editCourse(id: string, course: Course) {
         // Add your code here
     }
 
     deleteCourse(id: string) {
-        this.coursesService.deleteCourse(id);
+        return this.coursesService.deleteCourse(id)
     }
 
 

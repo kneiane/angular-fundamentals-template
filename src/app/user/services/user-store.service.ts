@@ -15,7 +15,7 @@ export class UserStoreService {
   constructor(private userService: UserService) {
     this.userService.getUser().subscribe((user) => {
       this.name$$.next(user.name);
-      this.isAdmin$$.next(user.isAdmin);
+      this.isAdmin$$.next(user.role === "admin");
     });
   }
 

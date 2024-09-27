@@ -1,56 +1,54 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Course } from '@app/features/courses/course-model';
-import { map, Observable } from 'rxjs';
-import { environment } from 'src/environments/environment';
+import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { Course } from "@app/features/courses/course-model";
+import { map, Observable } from "rxjs";
+import { environment } from "src/environments/environment";
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: "root",
 })
 export class CoursesService {
-    constructor(private http: HttpClient) {}
-    
-    getAll(): Observable<Course[]> {
-        return this.http.get<{result: Course[]}>(environment.backendURL + '/courses/all').pipe(
-            map(
-                (response) => response.result
-            )
-        );
-    }
+  constructor(private http: HttpClient) {}
 
-    createCourse(course: Course) {
-        return this.http.post(environment.backendURL + '/courses', course);
-    }
+  getAll(): Observable<Course[]> {
+    return this.http
+      .get<{ result: Course[] }>(environment.backendURL + "/courses/all")
+      .pipe(map((response) => response.result));
+  }
 
-    editCourse(id: string, course: Course) { // replace 'any' with the required interface
-        return this.http.put(environment.backendURL + '/courses/{id}', course);
-    }
+  createCourse(course: Course): Observable<Course> {
+    return this.http.post<Course>(environment.backendURL + "/courses", course);
+  }
 
-    getCourse(id: string): Observable<Course> {
-        return this.http.get<{result: Course}>(environment.backendURL + `/courses/${id}`).pipe(
-            map(
-                (response) => response.result
-            )
-        );
-    }
+  editCourse(id: string, course: Course): Observable<Course> {
+    return this.http.put<Course>(
+      environment.backendURL + `/courses/${id}`, course
+    );
+  }
 
-    deleteCourse(id: string) {
-        return this.http.delete(environment.backendURL + '/courses/{id}');
-    }
+  getCourse(id: string): Observable<Course> {
+    return this.http
+      .get<{ result: Course }>(environment.backendURL + `/courses/${id}`)
+      .pipe(map((response) => response.result));
+  }
 
-    filterCourses(value: string) {
-        return this.http.get(`/api/courses?filter=${value}`);   // FIXME it probably shouldn't be 'value'
-    }
+  deleteCourse(id: string) {
+    return this.http.delete(environment.backendURL + `/courses/${id}`);
+  }
 
-    getAllAuthors() {
-        return this.http.get(environment.backendURL + '/authors/all');
-    }
+  filterCourses(value: string) {
+    return this.http.get(`/api/courses?filter=${value}`); // FIXME it probably shouldn't be 'value'
+  }
 
-    createAuthor(name: string) {
-        return this.http.post(environment.backendURL + '/authors/add', name);
-    }
+  getAllAuthors() {
+    return this.http.get(environment.backendURL + "/authors/all");
+  }
 
-    getAuthorById(id: string) {
-        return this.http.get(environment.backendURL + '/authors/{id}');
-    }
+  createAuthor(name: string) {
+    return this.http.post(environment.backendURL + "/authors/add", name);
+  }
+
+  getAuthorById(id: string) {
+    return this.http.get(environment.backendURL + `/authors/${id}`);
+  }
 }
