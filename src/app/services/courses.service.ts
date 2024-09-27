@@ -18,16 +18,20 @@ export class CoursesService {
         );
     }
 
-    createCourse(course: any) { // replace 'any' with the required interface
+    createCourse(course: Course) {
         return this.http.post(environment.backendURL + '/courses', course);
     }
 
-    editCourse(id: string, course: any) { // replace 'any' with the required interface
-        return this.http.put(environment.backendURL + '/courses/{id}', id, course);
+    editCourse(id: string, course: Course) { // replace 'any' with the required interface
+        return this.http.put(environment.backendURL + '/courses/{id}', course);
     }
 
-    getCourse(id: string) {
-        return this.http.get(environment.backendURL + '/courses/{id}');
+    getCourse(id: string): Observable<Course> {
+        return this.http.get<{result: Course}>(environment.backendURL + `/courses/${id}`).pipe(
+            map(
+                (response) => response.result
+            )
+        );
     }
 
     deleteCourse(id: string) {

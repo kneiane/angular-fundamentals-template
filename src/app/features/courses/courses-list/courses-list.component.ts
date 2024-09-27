@@ -14,4 +14,9 @@ export class CoursesListComponent {
   @Output() showCourse = new EventEmitter<string>();
   @Output() editCourse = new EventEmitter<string>();
   @Output() deleteCourse = new EventEmitter<string>();
+
+  onShowCourse(): void {
+    this.showCourse.emit();
+    console.log('ok');
+  }
 }

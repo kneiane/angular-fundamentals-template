@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CoursesService } from './courses.service';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { Course } from '@app/features/courses/course-model';
 
 @Injectable({
@@ -34,8 +34,9 @@ export class CoursesStoreService {
         // Add your code here
     }
 
-    getCourse(id: string) {
-        // Add your code here
+    getCourse(id: string): Observable<Course> {
+        this.isLoading$$.next(true);
+        return this.coursesService.getCourse(id);
     }
 
     editCourse(id: string, course: any) { // replace 'any' with the required interface
@@ -43,8 +44,9 @@ export class CoursesStoreService {
     }
 
     deleteCourse(id: string) {
-        // Add your code here
+        this.coursesService.deleteCourse(id);
     }
+
 
     filterCourses(value: string) {
         // Add your code here

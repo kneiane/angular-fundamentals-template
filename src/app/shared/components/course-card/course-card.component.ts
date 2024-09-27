@@ -19,5 +19,6 @@ export class CourseCardComponent {
 
   handleClick() {
     this.clickOnShow.emit(this.title);
+    console.log('ok');
   }
 }
