@@ -4,5 +4,5 @@
   <app-button [buttonText]="'Add new course'" (click)="handleAddCourseClick()"></app-button>
 </div>
 </div>
-<app-courses-list [courses]="coursesStore.allCourses" [editable]="userStore.isAdmin$" (showCourse)="handleShowCourse($event)" (deleteCourse)="handleDeleteCourse($event)"
+<app-courses-list [courses]="(coursesStore.courses$ | async) ?? []" [editable]="userStore.isAdmin$" (showCourse)="handleShowCourse($event)" (deleteCourse)="handleDeleteCourse($event)"
 ></app-courses-list>

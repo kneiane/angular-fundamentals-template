@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CoursesService } from './courses.service';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { BehaviorSubject, delay, map, Observable, tap } from 'rxjs';
 import { Author, Course } from '@app/features/courses/course-model';
 
 @Injectable({
@@ -14,7 +14,7 @@ export class CoursesStoreService {
     public courses$ = this.courses$$.asObservable();
 
     private authors$$ = new BehaviorSubject<Author[]>([]);
-    public authors$ = this.courses$$.asObservable();
+    public authors$ = this.authors$$.asObservable();
 
     constructor(private coursesService: CoursesService) {}
 
@@ -60,14 +60,26 @@ export class CoursesStoreService {
         // Add your code here
     }
 
-    getAllAuthors() {
+    getAllAuthors(): Observable<Author[]> {
         this.isLoading$$.next(true);
-        this.coursesService.getAllAuthors().subscribe(
-            (authors) => {
-                this.authors$$.next(authors);
-                this.isLoading$$.next(false);
-            },
-            () => this.isLoading$$.next(false)
+        // this.coursesService.getAllAuthors().subscribe(
+        //     (authors) => {
+        //         this.authors$$.next(authors);
+        //         this.isLoading$$.next(false);
+        //     },
+        //     () => this.isLoading$$.next(false)
+        // );
+
+        return this.coursesService.getAllAuthors().pipe(
+            tap(
+                {
+                    next: (authors) => {
+                        this.authors$$.next(authors);
+                        this.isLoading$$.next(false);
+                    },
+                    error: () => this.isLoading$$.next(false)
+                }
+            )
         );
     }
 

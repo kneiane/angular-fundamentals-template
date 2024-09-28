@@ -64,16 +64,16 @@
     </div>
     <div class="course__courseauthors">
       <h3>Course Authors</h3>
-      <!-- <div *ngIf="courseAuthors.length === 0">
+      <div *ngIf="((this.coursesStore.authors$ | async) ?? []).length === 0">
         <span>Author list is empty.</span>
-      </div> -->
-      <!-- <div *ngFor="let courseAuthor of courseAuthors; let i = index" [courseAuthors]="coursesStore.allCourseAuthors">
+      </div>
+      <div *ngFor="let courseAuthor of (this.coursesStore.authors$ | async); let i = index" style="display: flex; gap: 12px; align-items: center;">
         <span>{{ courseAuthor.name }}</span>
         <app-button
           [iconName]="'trash-can'"
           class="remove-button"
         ></app-button>
-      </div> -->
+      </div>
     </div>
   </div>
 

@@ -25,8 +25,7 @@ export class CourseFormComponent {
       newAuthor: ['', [Validators.minLength(2), Validators.pattern('^[a-zA-Z0-9]+$')]],
       duration: [0, [Validators.required, Validators.min(0)]],
     });
-    this.coursesStore.getAllAuthors();
-    console.log(this.coursesStore.allCourseAuthors);
+    this.coursesStore.getAllAuthors().subscribe()
   }
 
   get authors(): FormArray {
