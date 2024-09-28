@@ -20,6 +20,7 @@ export class AuthService {
             map((response: any) => {
               this.sessionStorage.setToken(response.result);
               this.isAuthorized$$.next(true);
+              this.userStorageService.getUser().subscribe();
             })
           );
     }
@@ -28,6 +29,7 @@ export class AuthService {
         const clearValues = () => {
             this.sessionStorage.deleteToken();
             this.isAuthorised = false;
+            this.userStorageService.getUser().subscribe();
         };
 
         return this.http.delete(environment.backendURL + "/logout").subscribe(

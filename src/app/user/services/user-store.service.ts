@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { UserService } from "./user.service";
-import { BehaviorSubject } from "rxjs";
+import { BehaviorSubject, Observable, tap } from "rxjs";
 
 @Injectable({
   providedIn: "root",
@@ -13,14 +13,27 @@ export class UserStoreService {
   public isAdmin$ = this.isAdmin$$.asObservable();
 
   constructor(private userService: UserService) {
-    this.userService.getUser().subscribe((user) => {
-      this.name$$.next(user.name);
-      this.isAdmin$$.next(user.role === "admin");
-    });
+    this.getUser().subscribe();
   }
 
-  getUser() {
-    // Add your code here
+  getUser(): Observable<{
+    name: string;
+    email: string;
+    password: string;
+    role: string;
+  }> {
+    return this.userService.getUser().pipe(
+      tap({
+        next: (user) => {
+          this.name$$.next(user.name);
+          this.isAdmin$$.next(user.role === "admin");
+        },
+        error: () => {
+          this.name$$.next("");
+          this.isAdmin$$.next(false);
+        },
+      })
+    );
   }
 
   get isAdmin() {

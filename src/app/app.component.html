@@ -1,5 +1,5 @@
 <app-header>
-  <!-- {{userName}}  -->
+  {{ this.userStore.name$ | async}}
   <app-button *ngIf="!authService.isAuthorised" [buttonText]="'Login'" (click)="handleLoginClick()"></app-button>
   <app-button *ngIf="authService.isAuthorised" [buttonText]="'Logout'" (click)="handleLogoutClick()"></app-button>
 </app-header>
