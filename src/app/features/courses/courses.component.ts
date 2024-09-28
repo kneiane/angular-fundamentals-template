@@ -19,4 +19,11 @@ export class CoursesComponent {
     this.router.navigate([`/courses/${id}`])
   }
 
+  handleDeleteCourse(id: string) {
+    this.coursesStore.deleteCourse(id).subscribe(
+      () => this.coursesStore.getAll()
+    );
+  }
+
+  
 }

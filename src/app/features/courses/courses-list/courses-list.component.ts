@@ -25,11 +25,8 @@ export class CoursesListComponent {
     console.log(id);
   }
 
-  handleTrashIconClick(id: string) {
-    this.coursesStore.deleteCourse(id).subscribe(
-      () => this.coursesStore.getAll()
-    );
-
+  handleTrashIconClick(id: string): void {
+    this.deleteCourse.emit(id);
   }
 
 }
