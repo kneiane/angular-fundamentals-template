@@ -5,9 +5,10 @@
   [creationDate]="course.creationDate"
   [duration]="course.duration"
   [authors]="course.authors"
-  [editable]="editable"
+  [editable]="(editable | async) ?? false"
   [id]="course.id"
+  (clickOnShow)="handleClickOnShow($event)"
   >
   <app-button iconName="trash" (click)="handleTrashIconClick(course.id)"></app-button>
-  <app-button iconName="pencil"></app-button
-></app-course-card>
+  <app-button iconName="pencil"></app-button>
+</app-course-card>

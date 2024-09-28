@@ -12,13 +12,13 @@ export class CourseCardComponent {
   @Input() creationDate!: string;
   @Input() duration!: number;
   @Input() authors!: string[];
+  @Input() id!: string;
 
   @Input() editable!: boolean;
 
   @Output() clickOnShow = new EventEmitter<string>();
 
   handleClick() {
-    this.clickOnShow.emit(this.title);
-    console.log('ok');
+    this.clickOnShow.emit(this.id);
   }
 }

@@ -1,2 +1,2 @@
-<app-courses-list [courses]="coursesStore.allCourses" [editable]="userStore.isAdmin"
+<app-courses-list [courses]="coursesStore.allCourses" [editable]="userStore.isAdmin$" (showCourse)="handleShowCourse($event)"
 ></app-courses-list>
