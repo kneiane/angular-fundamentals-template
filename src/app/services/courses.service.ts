@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Course } from "@app/features/courses/course-model";
+import { Author, Course } from "@app/features/courses/course-model";
 import { map, Observable } from "rxjs";
 import { environment } from "src/environments/environment";
 
@@ -40,8 +40,9 @@ export class CoursesService {
     return this.http.get(`/api/courses?filter=${value}`); // FIXME it probably shouldn't be 'value'
   }
 
-  getAllAuthors() {
-    return this.http.get(environment.backendURL + "/authors/all");
+  getAllAuthors(): Observable<Author[]> {
+    return this.http.get<{result: Author[] }>(environment.backendURL + "/authors/all")
+      .pipe(map((response) => response.result));
   }
 
   createAuthor(name: string) {

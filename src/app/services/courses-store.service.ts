@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CoursesService } from './courses.service';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
-import { Course } from '@app/features/courses/course-model';
+import { Author, Course } from '@app/features/courses/course-model';
 
 @Injectable({
     providedIn: 'root'
@@ -12,6 +12,9 @@ export class CoursesStoreService {
 
     private courses$$ = new BehaviorSubject<Course[]>([]);
     public courses$ = this.courses$$.asObservable();
+
+    private authors$$ = new BehaviorSubject<Author[]>([]);
+    public authors$ = this.courses$$.asObservable();
 
     constructor(private coursesService: CoursesService) {}
 
@@ -58,7 +61,18 @@ export class CoursesStoreService {
     }
 
     getAllAuthors() {
-        // Add your code here
+        this.isLoading$$.next(true);
+        this.coursesService.getAllAuthors().subscribe(
+            (authors) => {
+                this.authors$$.next(authors);
+                this.isLoading$$.next(false);
+            },
+            () => this.isLoading$$.next(false)
+        );
+    }
+
+    get allCourseAuthors() {
+        return this.authors$$.value
     }
 
     createAuthor(name: string) {

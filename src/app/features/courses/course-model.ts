@@ -6,3 +6,8 @@ export interface Course {
   authors: string[];
   id: string
 }
+
+export interface Author {
+  name: string;
+  id: string
+}
