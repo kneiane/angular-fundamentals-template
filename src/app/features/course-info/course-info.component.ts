@@ -1,5 +1,5 @@
 import { Component, Input } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { CoursesStoreService } from "@app/services/courses-store.service";
 
 @Component({
@@ -10,7 +10,8 @@ import { CoursesStoreService } from "@app/services/courses-store.service";
 export class CourseInfoComponent {
   constructor(
     protected coursesStore: CoursesStoreService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    protected router: Router
   ) {}
 
   @Input() title: string = "";
@@ -32,4 +33,9 @@ export class CourseInfoComponent {
       });
     });
   }
+
+  handleBackButton(){
+    this. router.navigate(['/courses'])
+  }
+
 }
