@@ -9,6 +9,6 @@ export class AdminGuard {
     constructor(private userStore: UserStoreService, private router: Router) {}
 
   canActivate(): boolean | UrlTree {
-    return !this.userStore.isAdmin ? true : this.router.createUrlTree(['/courses']);
+    return this.userStore.isAdmin ? true : this.router.createUrlTree(['/courses']);
   }
 }
