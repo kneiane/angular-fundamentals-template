@@ -1,2 +1,8 @@
+<div style="display: flex;">
+<app-search></app-search>
+<div style="display: flex; flex-grow: 1; justify-content: flex-end;">
+  <app-button [buttonText]="'Add new course'" (click)="handleAddCourseClick()"></app-button>
+</div>
+</div>
 <app-courses-list [courses]="coursesStore.allCourses" [editable]="userStore.isAdmin$" (showCourse)="handleShowCourse($event)" (deleteCourse)="handleDeleteCourse($event)"
 ></app-courses-list>

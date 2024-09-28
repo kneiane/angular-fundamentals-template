@@ -9,7 +9,7 @@ export class SearchComponent {
   @Input() name!: string;
   @Output() search = new EventEmitter();
 
-  handleClick() {
+  handleSearchClick() {
     this.search.emit();
   }
 }

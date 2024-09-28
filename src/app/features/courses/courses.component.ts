@@ -25,5 +25,7 @@ export class CoursesComponent {
     );
   }
 
-  
+  handleAddCourseClick(){
+    this.router.navigate(['/add'])
+  }
 }

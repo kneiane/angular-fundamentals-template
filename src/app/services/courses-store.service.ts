@@ -30,8 +30,9 @@ export class CoursesStoreService {
         return this.courses$$.value
     }
 
-    createCourse(course: any) { // replace 'any' with the required interface
+    createCourse(course: Course): Observable<Course> {
         this.isLoading$$.next(true);
+        return this.coursesService.createCourse(course)
     }
 
     getCourse(id: string): Observable<Course> {
