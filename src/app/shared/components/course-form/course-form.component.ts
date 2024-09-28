@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl,Validators, FormArray } from '@angular/forms';
+import { Router } from '@angular/router';
+import { CoursesStoreService } from '@app/services/courses-store.service';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 
@@ -11,7 +13,7 @@ import { fas } from '@fortawesome/free-solid-svg-icons';
 export class CourseFormComponent {
   courseForm!: FormGroup;
 
-  constructor(public fb: FormBuilder, public library: FaIconLibrary) {
+  constructor(public fb: FormBuilder, public library: FaIconLibrary, protected coursesStore: CoursesStoreService, private router: Router) {
     library.addIconPacks(fas);
   }
 
@@ -42,6 +44,11 @@ export class CourseFormComponent {
 
   onSubmit(): void {
     if (this.courseForm.valid) {
+      this.coursesStore.createCourse(this.courseForm.value).subscribe(
+        {
+          next: () => this.router.navigate(['/courses'])
+        }
+      );
       console.log("Form Submitted!");
       console.log(this.courseForm.value);
     } else {

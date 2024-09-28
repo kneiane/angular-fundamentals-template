@@ -32,7 +32,9 @@ export class CoursesStoreService {
 
     createCourse(course: Course): Observable<Course> {
         this.isLoading$$.next(true);
-        return this.coursesService.createCourse(course)
+        return this.coursesService.createCourse(course).pipe(
+            tap(() => this.isLoading$$.next(false))
+        );
     }
 
     getCourse(id: string): Observable<Course> {

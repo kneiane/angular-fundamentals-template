@@ -17,7 +17,7 @@ export class CoursesService {
   }
 
   createCourse(course: Course): Observable<Course> {
-    return this.http.post<Course>(environment.backendURL + "/courses", course);
+    return this.http.post<Course>(environment.backendURL + "/courses/add", course);
   }
 
   editCourse(id: string, course: Course): Observable<Course> {
