@@ -3,6 +3,7 @@ import { mockedCoursesList } from '@app/shared/mocks/mocks';
 import { Course } from '../course-model';
 import { CoursesStoreService } from '@app/services/courses-store.service';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-courses-list',
@@ -11,7 +12,7 @@ import { Observable } from 'rxjs';
 })
 export class CoursesListComponent {
 
-  constructor(protected coursesStore: CoursesStoreService){}
+  constructor(protected coursesStore: CoursesStoreService, protected router: Router){}
 
   @Input() courses: Course[] = [];
   @Input() editable!: Observable<boolean>;

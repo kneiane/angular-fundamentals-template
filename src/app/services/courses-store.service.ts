@@ -48,7 +48,10 @@ export class CoursesStoreService {
     }
 
     editCourse(id: string, course: Course) {
-        // Add your code here
+        this.isLoading$$.next(true);
+        return this.coursesService.editCourse(id, course).pipe(
+            tap(() => this.isLoading$$.next(false))
+        );
     }
 
     deleteCourse(id: string) {

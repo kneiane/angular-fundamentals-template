@@ -13,7 +13,7 @@ export const routes: Routes = [
     {path: 'courses', component: CoursesComponent, canLoad: [AuthorizedGuard]},
     {path: 'add', component: CourseFormComponent, canLoad: [AuthorizedGuard], canActivate: [AdminGuard]},
     {path: 'courses/:id', component: CourseInfoComponent, canLoad: [AuthorizedGuard]},
-    {path: 'courses/edit/:id', component: CourseCardComponent, canLoad: [AuthorizedGuard], canActivate: [AdminGuard]},
+    {path: 'courses/edit/:id', component: CourseFormComponent, canLoad: [AuthorizedGuard], canActivate: [AdminGuard]},
     {path: '', redirectTo: '/courses', pathMatch: 'full'},
     {path: '**', redirectTo: '/courses'},
 ];
