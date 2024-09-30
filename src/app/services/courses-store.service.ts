@@ -59,8 +59,15 @@ export class CoursesStoreService {
     }
 
 
-    filterCourses(value: string) {
-        // Add your code here
+    filterCourses(value: string): void {
+        this.isLoading$$.next(true);
+        this.coursesService.filterCourses(value).subscribe(
+            (courses) => {
+                this.courses$$.next(courses);
+                this.isLoading$$.next(false);
+            },
+            () => this.isLoading$$.next(false)
+        )
     }
 
     getAllAuthors(): Observable<Author[]> {

@@ -29,4 +29,12 @@ export class CoursesComponent {
   handleAddCourseClick(){
     this.router.navigate(['/add'])
   }
+
+  handleSearchClicked(searchText: string): void {
+    if (searchText) {
+      this.coursesStore.filterCourses(searchText);
+    } else {
+      this.coursesStore.getAll();
+    }
+  }
 }

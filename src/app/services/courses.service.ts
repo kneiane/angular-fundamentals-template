@@ -37,7 +37,9 @@ export class CoursesService {
   }
 
   filterCourses(value: string) {
-    return this.http.get(`/api/courses?filter=${value}`); // FIXME it probably shouldn't be 'value'
+    return this.http.get<{ result: Course[] }>(environment.backendURL + `/courses/filter`, {
+      params: { title: [ value ] },
+    }).pipe(map((response) => response.result));
   }
 
   getAllAuthors(): Observable<Author[]> {

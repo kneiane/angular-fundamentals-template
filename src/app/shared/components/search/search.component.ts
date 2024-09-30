@@ -6,11 +6,11 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   styleUrls: ['./search.component.scss']
 })
 export class SearchComponent {
-  @Input() name!: string;
+  @Input() placeholder: string = "Input text";
   @Output() search = new EventEmitter();
 
-  handleSearchClick() {
-    this.search.emit();
+  handleSearchClick(searchText: string) {
+    this.search.emit(searchText);
   }
 }
 

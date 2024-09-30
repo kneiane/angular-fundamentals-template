@@ -1,5 +1,5 @@
 <div style="display: flex;">
-<app-search></app-search>
+<app-search (search)="handleSearchClicked($event)"></app-search>
 <div style="display: flex; flex-grow: 1; justify-content: flex-end;">
   <app-button *ngIf="this.userStore.isAdmin$ | async" [buttonText]="'Add new course'" (click)="handleAddCourseClick()"></app-button>
 </div>
