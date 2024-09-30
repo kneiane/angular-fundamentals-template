@@ -57,9 +57,11 @@
             <span>Author list is empty.</span>
           </div>
           <div *ngFor="let courseAuthor of (this.coursesStore.authors$ | async)" style="display: flex; gap: 12px; align-items: center;">
-            <span>{{ courseAuthor.name }}</span>
-            <button  class="authors_icons" (click)="addCourseAuthor(courseAuthor.id)"><fa-icon [icon]="['fas', 'plus']"></fa-icon></button>
-            <button  class="authors_icons" (click)="deleteAuthor(courseAuthor.id)"><fa-icon  [icon]="['fas', 'trash']" ></fa-icon></button>
+            <div *ngIf="!isAuthorAddedToCourse(courseAuthor.id)">
+              <span>{{ courseAuthor.name }}</span>
+              <button  class="authors_icons" (click)="addCourseAuthor(courseAuthor.id)"><fa-icon [icon]="['fas', 'plus']"></fa-icon></button>
+              <button  class="authors_icons" (click)="deleteAuthor(courseAuthor.id)"><fa-icon  [icon]="['fas', 'trash']" ></fa-icon></button>
+            </div>
           </div>
         </div>
       </div>
@@ -68,8 +70,8 @@
       <h3>Course Authors</h3>
       <div *ngFor="let author of authors.controls; let i = index" style="display: flex; flex-direction: row;">
          {{ author.value | authorNameById | async }}
-        <app-button [iconName]="'trash-can'" class="remove-button" />
- </div>
+        <app-button [iconName]="'trash-can'" class="remove-button" (click)="handleRemoveCourseAuthorClicked(author.value)" />
+      </div>
 </div>
   </div>
 

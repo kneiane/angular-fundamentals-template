@@ -72,6 +72,15 @@ export class CourseFormComponent {
     )
   }
 
+  isAuthorAddedToCourse(authorId: string): boolean {
+    for (let author of this.authors.controls) {
+      if (author.value === authorId) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   getAuthorById(id: string) {
     return this.coursesStore.getAuthorById(id);
   }
@@ -81,6 +90,14 @@ export class CourseFormComponent {
       () => {
         this.coursesStore.getAllAuthors().subscribe();
       }
+    )
+  }
+
+  handleRemoveCourseAuthorClicked(authorId: string) {
+    let arr = ((this.courseForm.get('authors') as FormArray).value as Array<string>);
+    this.authors.clear();
+    arr.filter((e) => authorId !== e).forEach(
+      e => this.addCourseAuthor(e)
     )
   }
 
