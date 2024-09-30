@@ -66,8 +66,20 @@ export class CourseFormComponent {
     
   }
 
-  removeAuthor(index: number): void {
-    this.authors.removeAt(index);
+  createAuthor(name: string): void {
+    this.coursesStore.createAuthor(name).subscribe(
+      () => {
+        this.coursesStore.getAllAuthors().subscribe();
+      }
+    )
+  }
+
+  deleteAuthor(id: string): void {
+    this.coursesStore.deleteAuthor(id).subscribe(
+      () => {
+        this.coursesStore.getAllAuthors().subscribe();
+      }
+    )
   }
 
   onSubmit(): void {

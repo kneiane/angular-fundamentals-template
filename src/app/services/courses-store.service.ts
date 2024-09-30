@@ -91,7 +91,21 @@ export class CoursesStoreService {
     }
 
     createAuthor(name: string) {
-        // Add your code here
+        return this.coursesService.createAuthor(name);
+    }
+
+    deleteAuthor(id: string): Observable<Object> {
+        this.isLoading$$.next(true);
+        return this.coursesService.deleteAuthor(id).pipe(
+            tap(
+                {
+                    next: () => {
+                        this.isLoading$$.next(false);
+                    },
+                    error: () => this.isLoading$$.next(false)
+                }
+            )
+        );
     }
 
     getAuthorById(id: string) {

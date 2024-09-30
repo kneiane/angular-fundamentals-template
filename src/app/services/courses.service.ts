@@ -46,7 +46,11 @@ export class CoursesService {
   }
 
   createAuthor(name: string) {
-    return this.http.post(environment.backendURL + "/authors/add", name);
+    return this.http.post(environment.backendURL + "/authors/add", {name: name});
+  }
+
+  deleteAuthor(id: string) {
+    return this.http.delete(environment.backendURL + "/authors/" + id);
   }
 
   getAuthorById(id: string) {

@@ -49,32 +49,29 @@
       <div class="form__control">
         <div class="course__flex">
           <input type="text" id="author" placeholder="Input Author Name" formControlName="newAuthor"/>
-          <app-button buttonText="create author" id="createAuthor" (click)="addAuthor(courseForm.controls['newAuthor'].value)"></app-button>
+          <app-button buttonText="create author" id="createAuthor" (click)="createAuthor(this.courseForm.controls['newAuthor'].value)"></app-button>
         </div>
         <span *ngIf="courseForm.controls['newAuthor'].errors?.['pattern']" id="authorErrorMessage" class="text-danger">New author should contain only latin letters and numbers.</span>
         <div class="course__authors" formArrayName="authors">
-          <div *ngFor="let author of authors.controls; let i = index" style="display: flex; flex-direction: row;">
-            <!-- <input [formControlName]="i"> -->
-             {{author.value}}
+          <div *ngIf="((this.coursesStore.authors$ | async) ?? []).length === 0">
+            <span>Author list is empty.</span>
+          </div>
+          <div *ngFor="let courseAuthor of (this.coursesStore.authors$ | async)" style="display: flex; gap: 12px; align-items: center;">
+            <span>{{ courseAuthor.name }}</span>
             <button  class="authors_icons"><fa-icon [icon]="['fas', 'plus']"></fa-icon></button>
-            <button  class="authors_icons" (click)="removeAuthor(i)"><fa-icon  [icon]="['fas', 'trash']" ></fa-icon></button>
+            <button  class="authors_icons" (click)="deleteAuthor(courseAuthor.id)"><fa-icon  [icon]="['fas', 'trash']" ></fa-icon></button>
           </div>
         </div>
       </div>
     </div>
     <div class="course__courseauthors">
       <h3>Course Authors</h3>
-      <div *ngIf="((this.coursesStore.authors$ | async) ?? []).length === 0">
-        <span>Author list is empty.</span>
-      </div>
-      <div *ngFor="let courseAuthor of (this.coursesStore.authors$ | async); let i = index" style="display: flex; gap: 12px; align-items: center;">
-        <span>{{ courseAuthor.name }}</span>
-        <app-button
-          [iconName]="'trash-can'"
-          class="remove-button"
-        ></app-button>
-      </div>
-    </div>
+      <div *ngFor="let author of authors.controls; let i = index" style="display: flex; flex-direction: row;">
+        <!-- <input [formControlName]="i"> -->
+         {{author.value}}
+        <app-button [iconName]="'trash-can'" class="remove-button" />
+ </div>
+</div>
   </div>
 
     </div>
