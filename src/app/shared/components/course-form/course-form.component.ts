@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CoursesStoreService } from '@app/services/courses-store.service';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { fas } from '@fortawesome/free-solid-svg-icons';
+import { concatAll, delay, filter, map, tap } from 'rxjs';
 
 @Component({
   selector: 'app-course-form',
@@ -59,11 +60,8 @@ export class CourseFormComponent {
     return this.courseForm.get('authors') as FormArray;
   }
 
-  addAuthor(authorName: string): void {
-    if (!this.courseForm.controls['newAuthor'].errors) {
-      this.authors.push(this.fb.control(authorName, Validators.required));
-    }
-    
+  addCourseAuthor(id: string): void {
+    this.authors.push(this.fb.control(id, Validators.required));
   }
 
   createAuthor(name: string): void {
@@ -72,6 +70,10 @@ export class CourseFormComponent {
         this.coursesStore.getAllAuthors().subscribe();
       }
     )
+  }
+
+  getAuthorById(id: string) {
+    return this.coursesStore.getAuthorById(id);
   }
 
   deleteAuthor(id: string): void {

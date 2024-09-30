@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CoursesService } from './courses.service';
-import { BehaviorSubject, delay, map, Observable, tap } from 'rxjs';
+import { BehaviorSubject, concatAll, delay, filter, map, Observable, tap } from 'rxjs';
 import { Author, Course } from '@app/features/courses/course-model';
 
 @Injectable({
@@ -109,6 +109,29 @@ export class CoursesStoreService {
     }
 
     getAuthorById(id: string) {
-        // Add your code here
+        return this.authors$.pipe(
+            // tap((v) => {console.log("1: " + JSON.stringify(v));}),
+            concatAll(),
+            // tap((v) => {console.log("2: " + JSON.stringify(v));}),
+            filter(a => a.id === id),
+            // tap((v) => {console.log("3: " + JSON.stringify(v));}),
+            map(a => a.name),
+            // tap((v) => {console.log("4: " + JSON.stringify(v));}),
+        );
     }
+  
+
+    // getAuthorById(id: string) {
+    //     this.isLoading$$.next(true);
+    //     return this.coursesService.getAuthorById(id).pipe(
+    //         tap(
+    //             {
+    //                 next: () => {
+    //                     this.isLoading$$.next(false);
+    //                 },
+    //                 error: () => this.isLoading$$.next(false)
+    //             }
+    //         )
+    //     );
+    // }
 }

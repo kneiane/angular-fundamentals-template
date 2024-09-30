@@ -13,6 +13,7 @@ export class CoursesComponent {
 
   ngOnInit(): void {
     this.coursesStore.getAll();
+    this.coursesStore.getAllAuthors().subscribe();
   }
 
   handleShowCourse(id: string): void {
