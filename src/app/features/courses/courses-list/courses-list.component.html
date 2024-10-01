@@ -15,6 +15,6 @@
   ></app-button>
   <app-button
     iconName="pencil"
-    (click)="this.router.navigate(['/courses/edit/' + course.id])"
+    (click)="handleEditCourse(course.id)"
   ></app-button>
 </app-course-card>

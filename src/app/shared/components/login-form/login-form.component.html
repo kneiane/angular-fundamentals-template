@@ -6,14 +6,14 @@
         <div class="form__control">
           <label for="email">Email</label>
           <input
+            #emailField="ngModel"
+            required
+            emailValidator
             type="text"
             id="email"
             placeholder="Input text"
-            required
-            emailValidator
-            ngModel
             name="email"
-            #emailField="ngModel"
+            ngModel
           />
           <span
             id="emailErrorMessage"
@@ -35,13 +35,13 @@
         <div class="form__control">
           <label for="password">Password</label>
           <input
+            #password="ngModel"
+            required
             type="password"
             id="password"
             placeholder="Input text"
-            required
-            ngModel
             name="password"
-            #password="ngModel"
+            ngModel
           />
           <span
             *ngIf="password.errors?.['required'] && (password.touched || loginForm.submitted)"

@@ -25,7 +25,10 @@ export class CoursesListComponent {
 
   handleClickOnShow(id: string): void {
     this.showCourse.emit(id);
-    console.log(id);
+  }
+
+  handleEditCourse(id: string) {
+    this.editCourse.emit(id);
   }
 
   handleTrashIconClick(id: string): void {

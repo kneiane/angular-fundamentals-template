@@ -14,6 +14,7 @@
     [editable]="userStore.isAdmin$"
     (showCourse)="handleShowCourse($event)"
     (deleteCourse)="handleDeleteCourse($event)"
+    (editCourse)="handleEditCourse($event)"
   />
 </div>
 <div *ngIf="((this.coursesStore.courses$ | async) ?? []).length === 0">
