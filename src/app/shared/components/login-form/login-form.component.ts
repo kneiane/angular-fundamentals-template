@@ -7,38 +7,33 @@ import { AuthService } from "@app/auth/services/auth.service";
   selector: "app-login-form",
   templateUrl: "./login-form.component.html",
   styleUrls: ["./login-form.component.scss"],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginFormComponent {
   @ViewChild("loginForm") public loginForm!: NgForm;
   failedLogin = false;
 
   constructor(private authService: AuthService, private router: Router) {}
-  // ^ equivalent with:
-  // private authService: AuthService;
-  // constructor (authService: AuthService) {
-  //   this.authService = authService;
-  // }
-
-  onSubmit() {
-    if (this.loginForm.valid) {
-      this.authService.login({
-        email: this.loginForm.controls["email"].value,
-        password: this.loginForm.controls["password"].value,
-      }).subscribe(
-        {
-          next: () => { this.router.navigate(["/courses"]); },
-          error: () => { this.failedLogin = true; }
-        }
-      );
-    } else {
-      console.log("Form is invalid");
-    }
-  }
 
   submitForm() {
-    //this.loginForm.ngSubmit.emit(); // this doesn't work
-    this.loginForm.onSubmit(new Event("submit")); // this works
+    if (this.loginForm.valid) {
+      this.authService
+        .login({
+          email: this.loginForm.controls["email"].value,
+          password: this.loginForm.controls["password"].value,
+        })
+        .subscribe({
+          next: () => {
+            this.router.navigate(["/courses"]);
+          },
+          error: () => {
+            this.failedLogin = true;
+          },
+        });
+    } else {
+      this.loginForm.onSubmit(new Event("submit"));
+      console.log("Form is invalid");
+    }
   }
 
   resetForm() {

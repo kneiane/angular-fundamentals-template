@@ -1,6 +1,6 @@
 <h2 class="text-align-center" (click)="resetForm()">Login</h2>
 <div class="app-plate">
-  <form #loginForm="ngForm" (ngSubmit)="onSubmit()" novalidate>
+  <form #loginForm="ngForm" novalidate>
     <div class="login-form">
       <div>
         <div class="form__control">
@@ -18,19 +18,15 @@
           <span
             id="emailErrorMessage"
             class="text-danger"
-            *ngIf="emailField.invalid && (emailField.touched || loginForm.submitted)"
+            *ngIf="
+              emailField.invalid && (emailField.touched || loginForm.submitted)
+            "
           >
             <span *ngIf="emailField.errors?.['required']"
               >Email is required.</span
             >
             <span *ngIf="emailField.errors?.['isInvalid']">Invalid email.</span>
           </span>
-          <!-- {{ emailField.value }} -->
-            <!-- submitted: {{ loginForm.submitted }} -->
-          <!-- <br />
-            Invalid: {{ emailField.invalid }} <br />
-            Touched: {{ emailField.touched }} <br />
-            Errors: {{emailField.errors | json}} <br /> -->
         </div>
         <div class="form__control">
           <label for="password">Password</label>
@@ -53,21 +49,14 @@
       </div>
       <div>
         <div class="form__action">
-          <app-button
-            buttonText="login"
-            (click)="submitForm()"
-          ></app-button>
-          <span
-          class="text-danger"
-          *ngIf="failedLogin"
-          >
-          Invalid email address or password provided.
-        </span>
-           <!-- this works and set the submitted value to true -->
-          <!-- <button type="submit">Submit</button> -->
+          <app-button buttonText="login" (click)="submitForm()"></app-button>
+          <span class="text-danger" *ngIf="failedLogin">
+            Invalid email address or password provided.
+          </span>
         </div>
         <div class="form__text">
-          If you don't have an account you may <strong><a [routerLink]="['/registration']">Registration</a></strong>
+          If you don't have an account you may
+          <strong><a [routerLink]="['/registration']">Registration</a></strong>
         </div>
       </div>
     </div>
