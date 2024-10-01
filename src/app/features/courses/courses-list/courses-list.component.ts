@@ -1,18 +1,20 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { mockedCoursesList } from '@app/shared/mocks/mocks';
-import { Course } from '../course-model';
-import { CoursesStoreService } from '@app/services/courses-store.service';
-import { Observable } from 'rxjs';
-import { Router } from '@angular/router';
+import { Component, EventEmitter, Input, Output } from "@angular/core";
+import { mockedCoursesList } from "@app/shared/mocks/mocks";
+import { Course } from "../course-model";
+import { CoursesStoreService } from "@app/services/courses-store.service";
+import { Observable } from "rxjs";
+import { Router } from "@angular/router";
 
 @Component({
-  selector: 'app-courses-list',
-  templateUrl: './courses-list.component.html',
-  styleUrls: ['./courses-list.component.css']
+  selector: "app-courses-list",
+  templateUrl: "./courses-list.component.html",
+  styleUrls: ["./courses-list.component.css"],
 })
 export class CoursesListComponent {
-
-  constructor(protected coursesStore: CoursesStoreService, protected router: Router){}
+  constructor(
+    protected coursesStore: CoursesStoreService,
+    protected router: Router
+  ) {}
 
   @Input() courses: Course[] = [];
   @Input() editable!: Observable<boolean>;
@@ -29,5 +31,4 @@ export class CoursesListComponent {
   handleTrashIconClick(id: string): void {
     this.deleteCourse.emit(id);
   }
-
 }

@@ -1,8 +1,27 @@
-<div style="display: flex;">
-<app-search (search)="handleSearchClicked($event)"></app-search>
-<div style="display: flex; flex-grow: 1; justify-content: flex-end;">
-  <app-button *ngIf="this.userStore.isAdmin$ | async" [buttonText]="'Add new course'" (click)="handleAddCourseClick()"></app-button>
+<div *ngIf="((this.coursesStore.courses$ | async) ?? []).length > 0">
+  <div style="display: flex">
+    <app-search (search)="handleSearchClicked($event)" />
+    <div style="display: flex; flex-grow: 1; justify-content: flex-end">
+      <app-button
+        *ngIf="this.userStore.isAdmin$ | async"
+        [buttonText]="'Add new course'"
+        (click)="handleAddCourseClick()"
+      />
+    </div>
+  </div>
+  <app-courses-list
+    [courses]="(coursesStore.courses$ | async) ?? []"
+    [editable]="userStore.isAdmin$"
+    (showCourse)="handleShowCourse($event)"
+    (deleteCourse)="handleDeleteCourse($event)"
+  />
 </div>
+<div *ngIf="((this.coursesStore.courses$ | async) ?? []).length === 0">
+  <app-info title="Your List Is Empty" text="Please use ’Add New Course’ button to add your first course" >
+    <app-button
+      *ngIf="this.userStore.isAdmin$ | async"
+      [buttonText]="'Add new course'"
+      (click)="handleAddCourseClick()"
+    />
+  </app-info>
 </div>
-<app-courses-list [courses]="(coursesStore.courses$ | async) ?? []" [editable]="userStore.isAdmin$" (showCourse)="handleShowCourse($event)" (deleteCourse)="handleDeleteCourse($event)"
-></app-courses-list>

@@ -15,6 +15,7 @@ import { CoursesModule } from './features/courses/courses.module';
 import { AppRoutingModule } from './app-routing.module';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { TokenInterceptor } from './auth/interceptors/token.interceptor';
+import { StoreModule } from '@ngrx/store';
 
 @NgModule({
   declarations: [AppComponent, CourseInfoComponent],
@@ -27,7 +28,8 @@ import { TokenInterceptor } from './auth/interceptors/token.interceptor';
     CoursesModule,
     FontAwesomeModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    StoreModule.forRoot({}, {})
   ],
   providers: [AuthorizedGuard, NotAuthorizedGuard, CoursesService, CoursesStoreService,
       { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }

@@ -14,12 +14,12 @@ export class CourseInfoComponent {
     protected router: Router
   ) {}
 
-  @Input() title: string = "";
-  @Input() description: string = "";
-  @Input() id: string = "";
-  @Input() duration: number = 0;
-  @Input() creationDate: Date = new Date();
-  @Input() authors: string[] = [];
+  @Input() title!: string;
+  @Input() description!: string;
+  @Input() id!: string;
+  @Input() duration!: number;
+  @Input() creationDate!: Date;
+  @Input() authors!: string[];
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((params) => {
@@ -28,14 +28,20 @@ export class CourseInfoComponent {
         this.title = course.title;
         this.description = course.description;
         this.duration = course.duration;
-        // this.creationDate = course.creationDate;
+        this.creationDate = this.stringToDate(course.creationDate);
         this.authors = course.authors;
       });
     });
+    this.coursesStore.getAllAuthors().subscribe();
   }
 
-  handleBackButton(){
-    this. router.navigate(['/courses'])
+  handleBackButton() {
+    this.router.navigate(["/courses"]);
+  }
+
+  stringToDate(source: string): Date {
+    const [day, month, year] = source.split("/");
+    return new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
   }
 
 }

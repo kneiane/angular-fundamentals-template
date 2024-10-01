@@ -1,4 +1,3 @@
-
 <app-course-card
   *ngFor="let course of courses"
   [title]="course.title"
@@ -9,7 +8,13 @@
   [editable]="(editable | async) ?? false"
   [id]="course.id"
   (clickOnShow)="handleClickOnShow($event)"
-  >
-  <app-button iconName="trash" (click)="handleTrashIconClick(course.id)"></app-button>
-  <app-button iconName="pencil" (click)="this.router.navigate(['/courses/edit/' + course.id])"></app-button>
+>
+  <app-button
+    iconName="trash"
+    (click)="handleTrashIconClick(course.id)"
+  ></app-button>
+  <app-button
+    iconName="pencil"
+    (click)="this.router.navigate(['/courses/edit/' + course.id])"
+  ></app-button>
 </app-course-card>
