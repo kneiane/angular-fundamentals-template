@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { CoursesStoreService } from '@app/services/courses-store.service';
+import { CoursesStateFacade } from '@app/store/courses/courses.facade';
 import { UserStoreService } from '@app/user/services/user-store.service';
 
 @Component({
@@ -9,15 +10,17 @@ import { UserStoreService } from '@app/user/services/user-store.service';
   styleUrls: ['./courses.component.css']
 })
 export class CoursesComponent {
-  constructor(protected coursesStore: CoursesStoreService, protected userStore: UserStoreService, protected router: Router) {}
+  constructor(protected coursesStore: CoursesStoreService, protected coursesFacade: CoursesStateFacade, protected userStore: UserStoreService, protected router: Router) {}
 
   ngOnInit(): void {
-    this.coursesStore.getAll();
+    // this.coursesStore.getAll();
     this.coursesStore.getAllAuthors().subscribe();
+    this.coursesFacade.getAllCourses();
   }
 
   handleShowCourse(id: string): void {
-    this.router.navigate([`/courses/${id}`])
+    // this.router.navigate([`/courses/${id}`])
+    this.coursesFacade.getSingleCourse(id);
   }
 
   handleEditCourse(id: string): void {

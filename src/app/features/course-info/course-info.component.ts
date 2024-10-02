@@ -1,6 +1,7 @@
 import { Component, Input } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { CoursesStoreService } from "@app/services/courses-store.service";
+import { CoursesStateFacade } from "@app/store/courses/courses.facade";
 
 @Component({
   selector: "app-course-info",
@@ -11,7 +12,8 @@ export class CourseInfoComponent {
   constructor(
     protected coursesStore: CoursesStoreService,
     private activatedRoute: ActivatedRoute,
-    protected router: Router
+    protected router: Router,
+    private coursesFacade: CoursesStateFacade
   ) {}
 
   @Input() title!: string;
@@ -22,17 +24,31 @@ export class CourseInfoComponent {
   @Input() authors!: string[];
 
   ngOnInit(): void {
-    this.activatedRoute.params.subscribe((params) => {
-      this.coursesStore.getCourse(params["id"]).subscribe((course) => {
-        this.id = course.id;
-        this.title = course.title;
-        this.description = course.description;
-        this.duration = course.duration;
-        this.creationDate = this.stringToDate(course.creationDate);
-        this.authors = course.authors;
-      });
-    });
+    this.coursesFacade.course$.subscribe(
+      (course) => {
+        if (course) {
+          this.title = course.title;
+          this.description = course.description;
+          this.id = course.id;
+          this.duration = course.duration;
+          this.creationDate = this.stringToDate(course.creationDate);
+          this.authors = course.authors;
+        }
+      }
+    )
     this.coursesStore.getAllAuthors().subscribe();
+    this.activatedRoute.params.subscribe((params) => {
+      this.coursesFacade.course$.subscribe(
+        (course) => {
+          if (!course) {
+            const idInUrl = params['id'];
+            if (idInUrl) {
+              this.coursesFacade.getSingleCourse(idInUrl);
+            }
+          }
+        }
+      )
+    });
   }
 
   handleBackButton() {
