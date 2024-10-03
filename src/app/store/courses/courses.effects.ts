@@ -46,7 +46,6 @@ export class CoursesEffects {
       mergeMap(
         action => this.coursesService.getCourse(action.id).pipe(
           map(course => CoursesActions.requestSingleCourseSuccess({ course })),
-          tap(() => this.router.navigate(['/courses/' + action.id])),
           catchError(error => of(CoursesActions.requestSingleCourseFail({ error })))
         )
       )
@@ -83,8 +82,8 @@ export class CoursesEffects {
   createCourse$ = createEffect(() =>
     this.actions$.pipe(
       ofType(CoursesActions.requestCreateCourse),
-      mergeMap(action =>
-        this.coursesService.createCourse(action.course).pipe(
+      mergeMap(
+        action => this.coursesService.createCourse(action.course).pipe(
           map(course => CoursesActions.requestCreateCourseSuccess({ course })),
           catchError(error => of(CoursesActions.requestCreateCourseFail({ error })))
         )

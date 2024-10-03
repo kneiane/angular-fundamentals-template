@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl,Validators, FormArray } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CoursesStoreService } from '@app/services/courses-store.service';
+import { CoursesStateFacade } from '@app/store/courses/courses.facade';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { fas } from '@fortawesome/free-solid-svg-icons';
-import { concatAll, delay, filter, map, tap } from 'rxjs';
 
 @Component({
   selector: 'app-course-form',
@@ -16,7 +16,7 @@ export class CourseFormComponent {
   editExisting: boolean = false;
   editedId?: string;
 
-  constructor(public fb: FormBuilder, public library: FaIconLibrary, protected coursesStore: CoursesStoreService, private router: Router, private activatedRoute: ActivatedRoute) {
+  constructor(public fb: FormBuilder, public library: FaIconLibrary, protected coursesStore: CoursesStoreService, private coursesFacade: CoursesStateFacade, private router: Router, private activatedRoute: ActivatedRoute) {
     library.addIconPacks(fas);
   }
 
@@ -25,11 +25,10 @@ export class CourseFormComponent {
       title: ['', [Validators.required, Validators.minLength(2)]],
       description: ['', [Validators.required, Validators.minLength(2)]],
       authors: this.fb.array([]),
-      courseAuthors: this.fb.array([]),
       newAuthor: ['', [Validators.minLength(2), Validators.pattern('^[a-zA-Z0-9]+$')]],
       duration: [0, [Validators.required, Validators.min(0)]],
     });
-    this.coursesStore.getAllAuthors().subscribe()
+    this.coursesStore.getAllAuthors().subscribe();
     this.editCourse();
   }
 
@@ -42,12 +41,16 @@ export class CourseFormComponent {
             (params) => {
               const id = params['id'];
               this.editedId = id;
-              this.coursesStore.getCourse(id).subscribe(
+              this.coursesFacade.getSingleCourse(id);
+              this.coursesFacade.course$.subscribe(
                 (course) => {
-                  this.courseForm.controls['title'].setValue(course.title);
-                  this.courseForm.controls['description'].setValue(course.description);
-                  this.courseForm.controls['duration'].setValue(course.duration);
-                  this.courseForm.controls['authors'].setValue(course.authors);
+                  if (course) {
+                    this.courseForm.controls['title'].setValue(course.title);
+                    this.courseForm.controls['description'].setValue(course.description);
+                    this.courseForm.controls['duration'].setValue(course.duration);
+                    this.authors.clear();
+                    course.authors.forEach(authorId => this.addCourseAuthor(authorId));
+                  }
                 }
               )
             }
@@ -106,25 +109,13 @@ export class CourseFormComponent {
     if (this.courseForm.valid) {
       if (this.editExisting) {
         if (this.editedId) {
-          this.coursesStore.editCourse(this.editedId, this.courseForm.value).subscribe(
-            {
-              next: () => this.router.navigate(['/courses'])
-            }
-          )
+          this.coursesFacade.editCourse(this.editedId, this.courseForm.value);
         } else {
           throw new Error("No edited ID present - this should be a bug.");
         }
       } else {
-        this.coursesStore.createCourse(this.courseForm.value).subscribe(
-          {
-            next: () => this.router.navigate(['/courses'])
-          }
-        );
-        console.log("Form Submitted!");
-        console.log(this.courseForm.value);
+        this.coursesFacade.createCourse(this.courseForm.value);
       }
-    } else {
-      console.log("Form is invalid");
     }
   }
 

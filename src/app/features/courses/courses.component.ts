@@ -13,13 +13,12 @@ export class CoursesComponent {
   constructor(protected coursesStore: CoursesStoreService, protected coursesFacade: CoursesStateFacade, protected userStore: UserStoreService, protected router: Router) {}
 
   ngOnInit(): void {
-    // this.coursesStore.getAll();
     this.coursesStore.getAllAuthors().subscribe();
     this.coursesFacade.getAllCourses();
   }
 
   handleShowCourse(id: string): void {
-    // this.router.navigate([`/courses/${id}`])
+    this.router.navigate([`/courses/${id}`]);
     this.coursesFacade.getSingleCourse(id);
   }
 
