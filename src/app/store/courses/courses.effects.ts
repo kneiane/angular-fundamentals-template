@@ -13,11 +13,11 @@ export class CoursesEffects {
   constructor(private actions$: Actions, private coursesService: CoursesService, private router: Router, private store: Store<{ courses: Course[] }>) {}
 
   // 1. Effect to get all courses
-  getAll$ = createEffect(() =>
-    this.actions$.pipe(
+  getAll$ = createEffect(
+    () => this.actions$.pipe(
       ofType(CoursesActions.requestAllCourses),
-      mergeMap(() =>  // FIXME check if exhaustMap is better
-        this.coursesService.getAll().pipe(
+      mergeMap(     // FIXME check if exhaustMap is better
+        () => this.coursesService.getAll().pipe(
           map(courses => CoursesActions.requestAllCoursesSuccess({ courses })),
           catchError(error => of(CoursesActions.requestAllCoursesFail({ error })))
         )
@@ -29,23 +29,22 @@ export class CoursesEffects {
   filteredCourses$ = createEffect(() =>
     this.actions$.pipe(
       ofType(CoursesActions.requestFilteredCourses),
-      withLatestFrom(this.store.pipe(select(getAllCourses))), // FIXME invoke BE instead
-      mergeMap(([action, allCourses]) => {
-        const filteredCourses = allCourses.filter(course => 
-          course.title.toLowerCase().includes(action.title.toLowerCase())
-        );
-        return of(CoursesActions.requestFilteredCoursesSuccess({ courses: filteredCourses }));
-      }),
+      mergeMap(
+        action => this.coursesService.filterCourses(action.title).pipe(
+          map((courses) => CoursesActions.requestFilteredCoursesSuccess({ courses: courses })),
+          catchError(error => of(CoursesActions.requestFilteredCoursesFail({ error })))
+        )
+      ),
       catchError(error => of(CoursesActions.requestFilteredCoursesFail({ error })))
     )
   );
 
   // 3. Effect to get a specific course
-  getSpecificCourse$ = createEffect(() =>
-    this.actions$.pipe(
+  getSpecificCourse$ = createEffect(
+    () => this.actions$.pipe(
       ofType(CoursesActions.requestSingleCourse),
-      mergeMap(action =>
-        this.coursesService.getCourse(action.id).pipe(
+      mergeMap(
+        action => this.coursesService.getCourse(action.id).pipe(
           map(course => CoursesActions.requestSingleCourseSuccess({ course })),
           tap(() => this.router.navigate(['/courses/' + action.id])),
           catchError(error => of(CoursesActions.requestSingleCourseFail({ error })))

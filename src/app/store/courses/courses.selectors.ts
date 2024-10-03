@@ -1,7 +1,7 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { CoursesState } from './courses.reducer';
 
-const selectCoursesState = createFeatureSelector<CoursesState>('courses');
+const selectCoursesState = createFeatureSelector<CoursesState>('courses');  // FIXME what's this for?
 
 export const isAllCoursesLoadingSelector = createSelector(
   selectCoursesState,

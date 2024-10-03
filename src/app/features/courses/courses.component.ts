@@ -37,9 +37,9 @@ export class CoursesComponent {
 
   handleSearchClicked(searchText: string): void {
     if (searchText) {
-      this.coursesStore.filterCourses(searchText);
+      this.coursesFacade.getFilteredCourses(searchText);
     } else {
-      this.coursesStore.getAll();
+      this.coursesFacade.getAllCourses();
     }
   }
 }
