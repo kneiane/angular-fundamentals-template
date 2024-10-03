@@ -28,9 +28,7 @@ export class CoursesComponent {
   }
 
   handleDeleteCourse(id: string) {
-    this.coursesStore.deleteCourse(id).subscribe(
-      () => this.coursesStore.getAll()
-    );
+    this.coursesFacade.deleteCourse(id);
   }
 
   handleAddCourseClick(){

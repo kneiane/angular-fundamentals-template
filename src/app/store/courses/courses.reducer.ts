@@ -25,7 +25,7 @@ export const initialState: CoursesState = {
 export const coursesReducer = createReducer(
   initialState,
 
-// Request All
+  // Request All
   on(CoursesActions.requestAllCourses, (state) => ({
     ...state,
     isAllCoursesLoading: true,
@@ -42,7 +42,7 @@ export const coursesReducer = createReducer(
     isAllCoursesLoading: false,
   })),
 
-// Request Single
+  // Request Single
   on(CoursesActions.requestSingleCourse, (state) => ({
     ...state,
     isSingleCourseLoading: true,
@@ -59,7 +59,7 @@ export const coursesReducer = createReducer(
     isSingleCourseLoading: false,
   })),
 
-// Request Filtered
+  // Request Filtered
   on(CoursesActions.requestFilteredCourses, (state) => ({
     ...state,
     isSingleCourseLoading: true,
@@ -76,7 +76,7 @@ export const coursesReducer = createReducer(
     isSingleCourseLoading: false,
   })),
 
-// Request Delete
+  // Request Delete
   on(CoursesActions.requestDeleteCourse, (state, { id }) => ({
     ...state,
     isAllCoursesLoading: true,
@@ -93,7 +93,7 @@ export const coursesReducer = createReducer(
     isSingleCourseLoading: false,
   })),
 
-// Request Edit
+  // Request Edit
   on(CoursesActions.requestEditCourse, (state) => ({
     ...state,
     isSingleCourseLoading: true,
@@ -110,7 +110,7 @@ export const coursesReducer = createReducer(
     isSingleCourseLoading: false,
   })),
 
-// Request Create
+  // Request Create
   on(CoursesActions.requestCreateCourse, (state, { course }) => ({
     ...state,
     isSingleCourseLoading: true,

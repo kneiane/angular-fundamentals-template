@@ -61,7 +61,6 @@ export class CoursesEffects {
       mergeMap(action =>
         this.coursesService.deleteCourse(action.id).pipe(
           map(() => CoursesActions.requestDeleteCourseSuccess({id: action.id})),
-          mergeMap(() => of(CoursesActions.requestAllCourses())), // Re-fetch all courses after deletion
           catchError(error => of(CoursesActions.requestDeleteCourseFail({ error })))
         )
       )
