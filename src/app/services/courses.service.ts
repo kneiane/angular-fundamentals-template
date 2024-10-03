@@ -17,12 +17,16 @@ export class CoursesService {
   }
 
   createCourse(course: Course): Observable<Course> {
-    return this.http.post<Course>(environment.backendURL + "/courses/add", course);
+    return this.http.post<Course>(
+      environment.backendURL + "/courses/add",
+      course
+    );
   }
 
   editCourse(id: string, course: Course): Observable<Course> {
     return this.http.put<Course>(
-      environment.backendURL + `/courses/${id}`, course
+      environment.backendURL + `/courses/${id}`,
+      course
     );
   }
 
@@ -32,23 +36,28 @@ export class CoursesService {
       .pipe(map((response) => response.result));
   }
 
-  deleteCourse(id: string) {
+  deleteCourse(id: string): Observable<object> {
     return this.http.delete(environment.backendURL + `/courses/${id}`);
   }
 
-  filterCourses(value: string) {
-    return this.http.get<{ result: Course[] }>(environment.backendURL + `/courses/filter`, {
-      params: { title: [ value ] },
-    }).pipe(map((response) => response.result));
+  filterCourses(value: string): Observable<Course[]> {
+    return this.http
+      .get<{ result: Course[] }>(environment.backendURL + `/courses/filter`, {
+        params: { title: [value] },
+      })
+      .pipe(map((response) => response.result));
   }
 
   getAllAuthors(): Observable<Author[]> {
-    return this.http.get<{result: Author[] }>(environment.backendURL + "/authors/all")
+    return this.http
+      .get<{ result: Author[] }>(environment.backendURL + "/authors/all")
       .pipe(map((response) => response.result));
   }
 
   createAuthor(name: string) {
-    return this.http.post(environment.backendURL + "/authors/add", {name: name});
+    return this.http.post(environment.backendURL + "/authors/add", {
+      name: name,
+    });
   }
 
   deleteAuthor(id: string) {

@@ -3,13 +3,11 @@ import { coursesReducer, CoursesState } from "./courses.reducer";
 import { CoursesEffects } from "./courses.effects";
 
 export interface State {
-    courses: CoursesState
+  courses: CoursesState;
 }
 
 export const reducers: ActionReducerMap<State> = {
-    courses: coursesReducer
+  courses: coursesReducer,
 };
 
-export const effects = [
-    CoursesEffects
-];
+export const effects = [CoursesEffects];
