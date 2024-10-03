@@ -1,8 +1,8 @@
-import { Directive, ElementRef } from '@angular/core';
+import { Directive, ElementRef } from "@angular/core";
 
 @Directive({
-  selector: '[appTogglePassword]',
-  exportAs: 'togglePassword'
+  selector: "[appTogglePassword]",
+  exportAs: "togglePassword",
 })
 export class TogglePasswordDirective {
   isPasswordVisible: boolean = false;
@@ -11,11 +11,10 @@ export class TogglePasswordDirective {
 
   toggleVisibility(): void {
     this.isPasswordVisible = !this.isPasswordVisible;
-    this.el.nativeElement.type = this.isPasswordVisible ? 'text' : 'password';
+    this.el.nativeElement.type = this.isPasswordVisible ? "text" : "password";
   }
 
   get isVisibleMethod(): boolean {
     return this.isPasswordVisible;
   }
-
 }
