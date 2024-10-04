@@ -3,11 +3,13 @@ import { CommonModule } from "@angular/common";
 import { CoursesListComponent } from "./courses-list.component";
 import { SharedModule } from "../../../shared/shared.module";
 
-const components = [CoursesListComponent];
-
 @NgModule({
-  declarations: [components],
+  declarations: [
+    CoursesListComponent
+  ],
   imports: [CommonModule, SharedModule],
-  exports: [components],
+  exports: [
+    CoursesListComponent
+  ],
 })
 export class CoursesListModule {}
