@@ -16,6 +16,9 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { DurationPipe } from './pipes/duration.pipe';
 import { CustomDatePipe } from './pipes/custom-date.pipe';
 import { EmailValidatorDirective } from '@shared/directives/email.directive';
+import { ConsoleLogPipe } from './pipes/console-log.pipe';
+import { AppRoutingModule } from '@app/app-routing.module';
+import { AuthorNameByIdPipe } from './pipes/author-name-by-id';
 
 const components = [
   HeaderComponent,
@@ -29,6 +32,8 @@ const components = [
   CourseFormComponent,
   DurationPipe,
   CustomDatePipe,
+  ConsoleLogPipe,
+  AuthorNameByIdPipe,
   EmailValidatorDirective
 ];
 
@@ -39,6 +44,7 @@ const components = [
     FontAwesomeModule,
     FormsModule,
     ReactiveFormsModule,
+    AppRoutingModule,
   ],
   exports: [components]
 })

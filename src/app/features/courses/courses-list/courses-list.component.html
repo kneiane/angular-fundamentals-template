@@ -1,0 +1,20 @@
+<app-course-card
+  *ngFor="let course of courses"
+  [title]="course.title"
+  [description]="course.description"
+  [creationDate]="course.creationDate"
+  [duration]="course.duration"
+  [authors]="course.authors"
+  [editable]="(editable | async) ?? false"
+  [id]="course.id"
+  (clickOnShow)="handleClickOnShow($event)"
+>
+  <app-button
+    iconName="trash"
+    (click)="handleTrashIconClick(course.id)"
+  ></app-button>
+  <app-button
+    iconName="pencil"
+    (click)="handleEditCourse(course.id)"
+  ></app-button>
+</app-course-card>

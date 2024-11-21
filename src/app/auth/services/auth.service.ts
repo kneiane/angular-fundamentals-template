@@ -1,30 +1,73 @@
-import { Injectable } from '@angular/core';
+import { HttpClient, HttpErrorResponse } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import {
+  BehaviorSubject,
+  map,
+  Observable,
+} from "rxjs";
+import { SessionStorageService } from "./session-storage.service";
+import { UserStoreService } from "@app/user/services/user-store.service";
+import { environment } from "src/environments/environment";
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: "root",
 })
 export class AuthService {
-    login(user: any) { // replace 'any' with the required interface
-        // Add your code here
-    }
+  private isAuthorized$$ = new BehaviorSubject<boolean>(this.hasToken());
+  public isAuthorized$ = this.isAuthorized$$.asObservable();
 
-    logout() {
-        // Add your code here
-    }
+  constructor(
+    private http: HttpClient,
+    private sessionStorage: SessionStorageService,
+    private userStorageService: UserStoreService
+  ) {}
 
-    register(user: any) { // replace 'any' with the required interface
-        // Add your code here
-    }
+  login(user: { email: string; password: string }): Observable<any> {
+    return this.http.post(environment.backendURL + "/login", user).pipe(
+      map((response: any) => {
+        this.sessionStorage.setToken(response.result);
+        this.isAuthorized$$.next(true);
+        this.userStorageService.getUser().subscribe();
+      })
+    );
+  }
 
-    get isAuthorised() {
-        // Add your code here. Get isAuthorized$$ value
-    }
+  logout() {
+    const clearValues = () => {
+      this.sessionStorage.deleteToken();
+      this.isAuthorised = false;
+      this.userStorageService.getUser().subscribe();
+    };
 
-    set isAuthorised(value: boolean) {
-        // Add your code here. Change isAuthorized$$ value
-    }
+    return this.http.delete(environment.backendURL + "/logout").subscribe({
+      next: clearValues,
+      error: clearValues,
+    });
+  }
 
-    getLoginUrl() {
-        // Add your code here
-    }
+  register(user: { name: string; email: string; password: string }) {
+    // FIXME invoke router to take you to the login page, with a pipe/subscribe method. see getLoginUrl()
+    return this.http.post(environment.backendURL + "/register", user).pipe(
+      map((response: any) => {
+        //   this.sessionStorage.setToken(response.result);
+        //   this.isAuthorized$$.next(true);
+      })
+    );
+  }
+
+  get isAuthorised() {
+    return this.isAuthorized$$.value;
+  }
+
+  set isAuthorised(value: boolean) {
+    this.isAuthorized$$.next(value);
+  }
+
+  getLoginUrl() {
+    return "/login";
+  }
+
+  hasToken(): boolean {
+    return !!this.sessionStorage.getToken();
+  }
 }

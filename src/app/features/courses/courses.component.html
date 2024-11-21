@@ -1,0 +1,28 @@
+<div *ngIf="((coursesFacade.courses$ | async) ?? []).length > 0">
+  <div style="display: flex">
+    <app-search (search)="handleSearchClicked($event)" />
+    <div style="display: flex; flex-grow: 1; justify-content: flex-end">
+      <app-button
+        *ngIf="this.userStore.isAdmin$ | async"
+        [buttonText]="'Add new course'"
+        (click)="handleAddCourseClick()"
+      />
+    </div>
+  </div>
+  <app-courses-list
+    [courses]="(coursesFacade.courses$ | async) ?? []"
+    [editable]="userStore.isAdmin$"
+    (showCourse)="handleShowCourse($event)"
+    (deleteCourse)="handleDeleteCourse($event)"
+    (editCourse)="handleEditCourse($event)"
+  />
+</div>
+<div *ngIf="((coursesFacade.courses$ | async) ?? []).length === 0">
+  <app-info title="Your List Is Empty" text="Please use ’Add New Course’ button to add your first course" >
+    <app-button
+      *ngIf="this.userStore.isAdmin$ | async"
+      [buttonText]="'Add new course'"
+      (click)="handleAddCourseClick()"
+    />
+  </app-info>
+</div>

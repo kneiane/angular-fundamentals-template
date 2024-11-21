@@ -19,6 +19,11 @@
       font-weight: bold;
     }
   }
+  &__buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+  }
 
   &__info {
     flex: 1;
@@ -30,5 +35,10 @@
     &-text {
       margin-top: 16px;
     }
+  }
+  &__info-actions {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
   }
 }
